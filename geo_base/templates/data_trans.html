@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block home_button %}
+<form action="/">
+    <input type="submit" value="home"/>
+</form>
+{% endblock %}
+
+{% block content %}
+<div>
+    <p>Введіть дані цілі</p>
+    <form>
+        Тип цілі <input list="target_type"  placeholder="тип цілі" required><br>
+            <datalist id="target_type">
+                <option>Особовий склад</option>
+                <option>Командний пункт</option>
+                <option>Техніка</option>
+                <option>Інше</option>
+            </datalist>
+        Довгота <input type="text" name="long" required ><br>
+        Широта <input type="text" name="atti" required ><br>
+        Додаткова інформація <input type="text" name="additional"><br>
+
+    <input type="submit" value="Надіслати">
+    </form>
+</div>
+{% endblock %}

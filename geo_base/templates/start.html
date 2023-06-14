@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start - Geodata</title>
+</head>
+
+<body>
+{% block home_button %}
+
+{% endblock home_button %}
+
+<h3>
+    WELLCOME TO <br>GEODATA <br>PROCESSING SYSTEM
+</h3>
+
+<div>
+    <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
+</div>
+
+<form action="/data_trans">
+    <input type="submit" value="link_to_data_transfer_page" />
+</form>
+
+{% block content %}
+
+{% endblock content %}
+</body>
+</html>
