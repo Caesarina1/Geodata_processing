@@ -79,7 +79,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'geodata_proc.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Geodata_proc_db',
+        'NAME': 'Geodata_proc',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',

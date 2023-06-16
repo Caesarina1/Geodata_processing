@@ -3,3 +3,14 @@ h3  {
     background-color: #c4f8f8;
     width: fit-content;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 10px;
+}
+
+#map {
+  height: 50%;
+  width: 50%;
+}

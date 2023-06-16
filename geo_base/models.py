@@ -12,8 +12,8 @@ class User(models.Model):
 
 
 class Target(models.Model):
-    target_id = models.UUIDField(primary_key=True, default=uuid.uuid4, null=False, editable=False)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, null=False, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False, editable=False)
     type = models.CharField(max_length=100, null=False)
     latitude = models.FloatField()
     longitude = models.FloatField()

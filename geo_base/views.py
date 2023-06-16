@@ -14,5 +14,10 @@ def data_transfer_page(request):
 
 
 def position_page(request):
-    targets_to_render = Target.objects.all()
-    return render(request=request, template_name="position.html")
+    targets = Target.objects.all()
+    users = User.objects.all()
+    target_objects = []
+    for target in targets:
+        target_objects.append(Target.objects.get(id=target.id))
+
+    return render(request=request, template_name="position.html", context={"targets": targets, "users": users, "target_objects": target_objects})

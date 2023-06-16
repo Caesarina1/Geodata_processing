@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <title>Start - Geodata</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" crossorigin=""></script>
 </head>
 
 <body>
@@ -28,5 +30,15 @@
 {% block content %}
 
 {% endblock content %}
+
+{% block target_list %}
+
+{% endblock target_list %}
+
+{% block map %}
+
+{% endblock map %}
+
+
 </body>
 </html>

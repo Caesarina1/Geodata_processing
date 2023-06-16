@@ -32,6 +32,13 @@ VALUES ('1d5bb6e4-1818-4a24-919f-ba8085130e2c', 'combat unit 003', '890123qwerty
 INSERT INTO geo_base_target (target_id, type, latitude, longitude)
 VALUES ('630898cd-d551-4ae3-94df-51950334a142', 'Особовий склад', '123456.01', '123456.02');
 
+
+
+INSERT INTO geo_base_target_users (target_id, user_id)
+    VALUES ('6412af20-a7f2-4317-b515-b037b2d28c1f', 'e8aeddfa-8596-4d7a-a50a-40fa859a0312');
+
+
+
 INSERT INTO geo_base_target (target_id, type, latitude, longitude)
 VALUES ('57748362-55a5-4483-a0ed-bb16d85d1c1c', 'Командний пункт', '234567.01', '234567.02');
 
