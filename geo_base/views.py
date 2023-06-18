@@ -15,9 +15,9 @@ def data_transfer_page(request):
 
 def position_page(request):
     targets = Target.objects.all()
-    users = User.objects.all()
     target_objects = []
     for target in targets:
-        target_objects.append(Target.objects.get(id=target.id))
+        tar = Target.objects.get(id=target.id)
+        target_objects.append({"type": tar.type, "created": tar.created_at, "user": tar.users.all()})
 
-    return render(request=request, template_name="position.html", context={"targets": targets, "users": users, "target_objects": target_objects})
+    return render(request=request, template_name="position.html", context={"target_objects": target_objects})

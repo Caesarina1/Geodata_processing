@@ -1,5 +1,7 @@
 from django.db import models
+# from django.contrib.gis.db import models as gis_models
 import uuid
+# from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -18,6 +20,14 @@ class Target(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     users = models.ManyToManyField(User, related_name='targets')
+
+
+# class Marker(gis_models.Model):
+#     name = gis_models.CharField(max_length=255)
+#     location = gis_models.PointField()
+#
+#     def __str__(self):
+#         return self.name
 
 
 # class Journal(models.Model):

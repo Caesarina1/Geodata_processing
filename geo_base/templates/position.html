@@ -30,31 +30,40 @@
 
 {% block target_list %}
 <div>
+
     <table>
 
         <tr>
-{#            <th>Created at</th>#}
             <th>Target type</th>
             <th>Distance</th>
+            <th>Date/time</th>
             <th>Agents</th>
         </tr>
-        {% for target in targets %}
+
+        {% for target in target_objects %}
+
         <tr>
-{#            <td>{{ target.created_at }}</td>#}
+
             <td>{{ target.type }}</td>
             <td>Distance</td>
-            <td>{{ target_objects }}
-            {{ target.target_id }}
-            {% if 1 in targets %}
-22
-            {% endif %}
+            <td>{{ target.created }}</td>
+            <td>
+                {% for tar in target.user %}
+                    {{ tar.login}} <br>
+                    {% endfor %}
+
             </td>
         </tr>
 
-        {% endfor %}
+
+            {% endfor %}
+
 
     </table>
 </div>
+
+
+
 {% endblock %}
 
 {% block map %}
