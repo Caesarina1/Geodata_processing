@@ -1,0 +1,10 @@
+.idea
+/venv/
+
+*.xml
+*.sqlite3
+*.sqlite
+*.db3
+*.s3db
+*.db
+*.sl3
