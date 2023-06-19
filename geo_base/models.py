@@ -1,17 +1,9 @@
 from django.db import models
 # from django.contrib.gis.db import models as gis_models
 import uuid
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 # Create your models here.
-
-
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, null=False, editable=False)
-    login = models.CharField(null=False, max_length=20)
-    password = models.CharField(null=False, max_length=30)
-    role = models.CharField(null=False, default='Agent')  #choices=[("agent", "Agent"), ("combat unit"), ("Сombat unit")])
-
 
 class Target(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, null=False, editable=False)

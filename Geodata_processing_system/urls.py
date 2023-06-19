@@ -15,13 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from geo_base.views import main_page, data_transfer_page, position_page
+from django.urls import path, include
+from geo_base import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('data_trans/', data_transfer_page),
-    path('', main_page),
-    path('position/', position_page),
-
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('data_trans/', views.data_transfer_page, name='data_transfer_page'),
+    path('', views.main_page),
+    path('position/', views.position_page, name='position_page'),
+    path('accounts/signup', views.signup)
+    # path('agent/<uuid:pk>', agent_profile, name="agent-info")
 ]
