@@ -3,7 +3,6 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Target(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, null=False, editable=False)
@@ -11,6 +10,7 @@ class Target(models.Model):
     type = models.CharField(max_length=100, null=False)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    comment = models.CharField(max_length=100, null=True)
     users = models.ManyToManyField(User, related_name='targets')
 
 

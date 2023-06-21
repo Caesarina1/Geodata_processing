@@ -10,18 +10,14 @@
 {% block content %}
 <div>
     <p>Enter target's data</p>
-    <form>
-        Target type<input list="target_type"  placeholder="type of target" required><br>
-            <datalist id="target_type">
-                <option>Military personnel</option>
-                <option>Command post</option>
-                <option>Military equipment</option>
-            </datalist>
-        Latitude <input type="text" name="latitude" required ><br>
-        Longitude <input type="text" name="longitude" required ><br>
-        Comment <input type="text" name="additional"><br>
+
+    <form method="POST" action="{% url 'data_transfer_page' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+
 
     <input type="submit" value="SEND">
     </form>
+
 </div>
 {% endblock %}

@@ -7,17 +7,21 @@
 </form>
 {% endblock %}
 
+
 {% block content %}
+
 <div>
     <p>Enter your position</p>
-    <form action="{% url 'position_page' %}" method="POST">
+    <form  method="POST" action="{% url 'position_page' %}">
         {% csrf_token %}
-{{ form.as_p }}
+        {{ form.as_p }}
+
     <input type="submit" value="SUBMIT">
     </form>
 </div>
 
 {% endblock %}
+
 
 {% block target_list %}
 <div>
