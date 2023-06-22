@@ -10,7 +10,7 @@ class Target(models.Model):
     type = models.CharField(max_length=100, null=False)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    comment = models.CharField(max_length=100, null=True)
+    comment = models.CharField(max_length=1000, null=True)
     users = models.ManyToManyField(User, related_name='targets')
 
 
