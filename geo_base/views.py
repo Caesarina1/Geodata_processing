@@ -40,11 +40,11 @@ def data_transfer_page(request):
             latitude_data = form.cleaned_data.get('latitude')
             longitude_data = form.cleaned_data.get('longitude')
             comment_data = form.cleaned_data.get('comment')
-            new_target = Target.objects.create(type=type_data, latitude=latitude_data, longitude=longitude_data,
-                                               comment=comment_data)
-            tmp_user_id = 1  # TEMP (in the future this will be filled
+            new_target = Target(type=type_data, latitude=latitude_data, longitude=longitude_data, comment=comment_data)
+            new_target.save()
+            user_entry = User.objects.get(pk=1)  # TEMP (in the future this will be filled
             # by a logining with the command users.objects.get())
-            new_target.users.add(users=tmp_user_id)
+            new_target.users.add(user_entry)
             print('target_type')
     else:
         form = forms.DataTransferForm()
