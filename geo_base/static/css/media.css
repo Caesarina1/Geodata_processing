@@ -1,0 +1,74 @@
+@media (max-width: 767px) {  /* media - setting for different screen resolution devices */
+
+.page-header__text{
+    font-size: 2em;
+    width: 7em;
+    line-height: .94em;;
+    }
+}
+
+/*tablet
+-------------------------------------------------------------------------------*/
+
+@media (min-width: 767px) {
+
+    .wrapper{
+        width: 747px;
+    }
+
+    .head-box{
+        display: flex;
+        height: 654px;
+        padding-top: 46px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .menu{
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    .logo{
+        margin-top: 0;
+        height: 36px;
+        align-items: center;
+
+    }
+
+    .header-nav{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-bottom: 124px;
+}
+
+    .mine-title{
+        font-size: 52px;
+        margin-bottom: 24px;
+    }
+
+    .mine-subtitle{
+        font-size: 24px;
+        margin-bottom: 33px;
+    }
+
+    .footer-button{
+        width: 188px;
+    }
+}
+
+/*Desktop
+----------------------------------------------------------------------------------*/
+@media (min-width: 960px) {
+   .wrapper{
+       width: 940px;
+    }
+
+    .head-box{
+        height: 660px;
+        padding-top: 40px;
+        width: 100%;
+    }
+}

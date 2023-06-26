@@ -3,46 +3,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Start - Geodata</title>
+    <meta charset="UTF-8">  <!metadata for browsers which sets the character encoding>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!metadata for browsers to read information about screen resolution>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet/dist/leaflet.css" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js" crossorigin=""></script>
+    <link rel="stylesheet" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet/dist/leaflet.css" crossorigin=""/>  <!for maps>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" crossorigin=""></script>  <!for maps>
+    <title>Geodata</title>
 </head>
 
+
 <body>
-{% block home_button %}
 
-{% endblock home_button %}
+           <header class="page-header wrapper">
+                <nav class="page-header__nav">
+                    <a class="site-logo link-clear" href="/">  <!link to a home(start) page>
+                        <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
+                        <p>GEODATA <br> PROCESSING <br> SYSTEM</p>
+                    </a>
 
-<h3>
-    WELLCOME TO <br>GEODATA <br>PROCESSING SYSTEM
-</h3>
+                        {% block authorisation_buttons %}
 
-<div>
-    <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
-</div>
+                        {% endblock authorisation_buttons %}
+                </nav>
+           </header>
 
-{% block data_transfer_button %}
+            <main class="wrapper">
+                {% block home_button %}
 
-{% endblock data_transfer_button %}
+                {% endblock home_button %}
 
-{% block content %}
+                {% block data_transfer_button %}
 
-{% endblock content %}
+                {% endblock data_transfer_button %}
 
-{% block target_list %}
+                {% block content %}
 
-{% endblock target_list %}
+                {% endblock content %}
 
-{% block map %}
+                {% block target_list %}
 
-{% endblock map %}
+                {% endblock target_list %}
 
-{% block need_to_signup %}
+                {% block map %}
 
-{% endblock need_to_signup %}
+                {% endblock map %}
+
+                {% block need_to_signup %}
+
+                {% endblock need_to_signup %}
+
+            </main>
+
+            <footer class="footer wrapper">
+                <ul class="site-nav list-clear">
+                    <li class="site-nav__item site-nav__item-text">
+                        <a href="/position" class="site-nav__link site-nav__link--underline link-clear">go to position page</a>
+                    </li >
+                     <li class="site-nav__item site-nav__item-text">
+                        <a href="/data_trans " class="site-nav__link site-nav__link--underline link-clear">go to data_trans page</a>
+                    </li>
+                     <li class="site-nav__item site-nav__item-text">
+                        <a href="/" class="site-nav__link site-nav__link--underline link-clear">go to start page</a>
+                    </li>
+                </ul>
+            </footer>
 
 
 </body>
+
 </html>

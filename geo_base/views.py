@@ -15,9 +15,12 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             is_staff = True if form.cleaned_data.get('role') == RoleChoice.COMBAT_UNIT else False
-            user = authenticate(username=username, password=raw_password, is_staff=is_staff)
+            user = authenticate(username=username, password=raw_password, is_staff=is_staff)  #is_authenticated
             login(request, user)
             if is_staff:
+                current_user = User.objects.get(username=username)
+                current_user.is_staff = True
+                current_user.save()
                 return redirect('position_page')
             return redirect('data_transfer_page')
     else:
@@ -26,7 +29,7 @@ def signup(request):
 
 
 def main_page(request):
-    return render(request=request, template_name="registration/login.html")
+    return render(request=request, template_name="start.html")
 
 
 #  transferring target's location to DB
@@ -42,10 +45,10 @@ def data_transfer_page(request):
             comment_data = form.cleaned_data.get('comment')
             new_target = Target(type=type_data, latitude=latitude_data, longitude=longitude_data, comment=comment_data)
             new_target.save()
-            user_entry = User.objects.get(pk=1)  # TEMP (in the future this will be filled
-            # by a logining with the command users.objects.get())
+            current_user_pk = 1  # TEMP (in the future this will be filled with pk of a user, which has been logged in)
+            user_entry = User.objects.get(pk=current_user_pk)
             new_target.users.add(user_entry)
-            print('target_type')
+            return redirect('data_transfer_page')
     else:
         form = forms.DataTransferForm()
 
@@ -55,6 +58,7 @@ def data_transfer_page(request):
 #  getting target's data related to own position
 
 def position_page(request):
+    target_objects = []
     if request.method == 'POST':
         form = forms.CombatUnitPositionForm(request.POST)
         if form.is_valid():
@@ -65,7 +69,6 @@ def position_page(request):
     else:
         form = forms.CombatUnitPositionForm()
         targets = Target.objects.all()
-        target_objects = []
         for target in targets:
             target_objects.append({"type": target.type, "created": target.created_at, "user": target.users.all()})
 

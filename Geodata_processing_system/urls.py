@@ -24,7 +24,6 @@ urlpatterns = [
     path('data_trans/', views.data_transfer_page, name='data_transfer_page'),
     path('', views.main_page),
     path('position/', views.position_page, name='position_page'),
-    # path('position/', views.position_page, name='position_page'),
     path('accounts/signup', views.signup)
     # path('agent/<uuid:pk>', agent_profile, name="agent-info")
 ]
