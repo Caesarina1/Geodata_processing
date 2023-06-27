@@ -4,6 +4,7 @@ from .models import User, Target
 from django.contrib.auth import login, authenticate
 from geo_base import forms
 from .utils import RoleChoice
+from .distance import count_dist
 
 
 def signup(request):
@@ -45,7 +46,7 @@ def data_transfer_page(request):
             comment_data = form.cleaned_data.get('comment')
             new_target = Target(type=type_data, latitude=latitude_data, longitude=longitude_data, comment=comment_data)
             new_target.save()
-            current_user_pk = 1  # TEMP (in the future this will be filled with pk of a user, which has been logged in)
+            current_user_pk = 1  # TEMP (in the future this will be filled with pk of a user, which has been logged in)!!!!!!!!
             user_entry = User.objects.get(pk=current_user_pk)
             new_target.users.add(user_entry)
             return redirect('data_transfer_page')
@@ -58,6 +59,7 @@ def data_transfer_page(request):
 #  getting target's data related to own position
 
 def position_page(request):
+    form = forms.CombatUnitPositionForm()
     target_objects = []
     if request.method == 'POST':
         form = forms.CombatUnitPositionForm(request.POST)
@@ -66,11 +68,14 @@ def position_page(request):
             latitude = form.cleaned_data.get('latitude')
             longitude = form.cleaned_data.get('longitude')
             comment = form.cleaned_data.get('comment')
+            targets = Target.objects.all()
+            for target in targets:
+                target_objects.append({"type": target.type,  # !!!
+                                       "distance": count_dist((latitude, longitude),
+                                                              (target.latitude, target.longitude)),
+                                       "created": target.created_at, "user": target.users.all()})
     else:
-        form = forms.CombatUnitPositionForm()
-        targets = Target.objects.all()
-        for target in targets:
-            target_objects.append({"type": target.type, "created": target.created_at, "user": target.users.all()})
+        print("Put your data")
 
     return render(request=request, template_name="position.html", context={"target_objects": target_objects,
                                                                            "form": form})
