@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 from geo_base import forms
 from .utils import RoleChoice
 from .distance import count_dist
+from datetime import date
+import time
 
 
 def signup(request):
@@ -59,8 +61,11 @@ def data_transfer_page(request):
 #  getting target's data related to own position
 
 def position_page(request):
+    latitude = ""
+    longitude = ""
     form = forms.CombatUnitPositionForm()
     target_objects = []
+
     if request.method == 'POST':
         form = forms.CombatUnitPositionForm(request.POST)
         if form.is_valid():
@@ -69,13 +74,41 @@ def position_page(request):
             longitude = form.cleaned_data.get('longitude')
             comment = form.cleaned_data.get('comment')
             targets = Target.objects.all()
+
+#  adding weight and certainty to our data
             for target in targets:
-                target_objects.append({"type": target.type,  # !!!
-                                       "distance": count_dist((latitude, longitude),
-                                                              (target.latitude, target.longitude)),
-                                       "created": target.created_at, "user": target.users.all()})
+                tar_weight = 0
+                tar_certainty = 0
+
+                if target.type == 'command_post':
+                    tar_weight += 10
+
+                for _ in target.users.all():
+                    tar_weight += 2
+                    tar_certainty += 10
+
+                created_marker = target.created_at
+                user_marker = target.users.all()
+
+                user_marker_item = []
+                for use in user_marker:
+                    user_marker_item.append(use.username)
+
+# !!! count_dist
+                target_objects.append({"type": target.type,
+                                       "latitude": target.latitude, "longitude": target.longitude,
+                                       "distance": count_dist((latitude, longitude),(target.latitude, target.longitude)),
+                                       "created": created_marker.strftime('%Y-%m-%d %H:%M:%S'), "Weight": tar_weight, "Certainty": tar_certainty,
+                                       "user": ', '.join(user_marker_item)})
+
+# writing down our coordinates in a file
+                loc = "let locations = " + str(target_objects)
+                with open("geo_base/static/targets.js", "w") as file:
+                    file.write(loc)
+
+# if filled up not correctly
     else:
         print("Put your data")
 
     return render(request=request, template_name="position.html", context={"target_objects": target_objects,
-                                                                           "form": form})
+                                                                           "form": form, "wind_lat": latitude, "wind_long": longitude})

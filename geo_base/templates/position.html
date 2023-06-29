@@ -42,12 +42,7 @@
             <td>{{ target.type }}</td>
             <td>{{ target.distance }}</td>
             <td>{{ target.created }}</td>
-            <td>
-                {% for tar in target.user %}
-                    {{ tar.login}} <br>
-                    {% endfor %}
-
-            </td>
+            <td>{{ target.user }}</td>
         </tr>
 
 
@@ -62,6 +57,12 @@
 {% endblock %}
 
 {% block map %}
-    <div id="map"></div>
+    <div id="map">
+    <script src="{% static './targets.js' %}" defer></script>
     <script src="{% static 'map.js' %}" defer></script>
+    </div>
+    <div>
+
+    <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?{{ wind_lat }}&{{ wind_long }}&detailLat=51.312&detailLon=32.948&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+    </div>
 {% endblock %}
