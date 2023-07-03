@@ -1,48 +1,79 @@
-//const copy = "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
-//const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-//const layer = L.tileLayer(url, { attribution: copy });
-//const map = L.map("map", { layers: [layer] });
-//map.fitWorld();
+    initial_position = [47.49493650511712, 36.175781451165676]
 
-let mapOptions = {
-    center:[47.49493650511712, 36.175781451165676],
-    zoom:10
+    if (locationsCU.latitudeC) {
+        initial_position = [locationsCU.latitudeC, locationsCU.longitudeC]
 }
 
-let map = new L.map('map' , mapOptions);
 
-let layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-map.addLayer(layer);
+    let mapOptions= {
+        center: initial_position,
+        zoom: 10
+}
+
+    let map = new L.map('map', mapOptions);
+
+    let layer= new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+    map.addLayer(layer);
+
+    let targetIcon= {
+        iconUrl: "../static/images/marker-icon-red.png",
+        iconSize: [25,41]
+}
+
+    let combatIcon= {
+        iconUrl: "../static/images/marker-icon-blue.png",
+        iconSize: [25,41]
+}
+
+    let myIcon = L.icon(targetIcon);
+
+    let myIcon2 = L.icon(combatIcon);
+
+    let iconOptions = {
+        title: "target.type",
+        draggable: true,
+        icon: myIcon,
+}
+
+    let icon2Options = {
+        title: "combat_unit.type",
+        draggable: true,
+        icon: myIcon2,
+}
+
+    let marker = null;
+    map.on('click', (event)=> {
+
+        if(marker !== null) {
+            map.removeLayer(marker);
+        }
 
 
-let marker = null;
-map.on('click', (event)=> {
+        marker = L.marker([event.latlng.lat, event.latlng.lng], icon2Options).addTo(map);
 
-    if(marker !== null){
-        map.removeLayer(marker);
-    }
-
-    marker = L.marker([event.latlng.lat , event.latlng.lng]).addTo(map);
-
-    document.getElementById('id_latitude').value = event.latlng.lat;
-    document.getElementById('id_longitude').value = event.latlng.lng;
-
+        document.getElementById('id_latitude').value = event.latlng.lat;
+        document.getElementById('id_longitude').value = event.latlng.lng;
 })
 
-
-let popupOption = {
+    let popupOption= {
     "closeButton":false
 }
 
-locations.forEach(element => {
-    new L.Marker([element.latitude,element.longitude]).addTo(map)
-    .on("mouseover",event =>{
-        event.target.bindPopup('<div class="card"><img src="'+element.src+'" width="80" height="80" alt="'+element.title+'">   <h3>'+element.title+'</h3></div>',popupOption).openPopup();
+
+    new L.Marker([locationsCU.latitudeC, locationsCU.longitudeC], icon2Options).addTo(map)
+
+    locations.forEach(element => {
+
+    new L.Marker([element.latitude,element.longitude], iconOptions).addTo(map)
+    .on("mouseover", event => {
+        event.target.bindPopup('<div class="card"> <img src="'+element.target_img_path+'" width="80" height="55" alt="'+element.type+'"> <h3>'+element.distance+'</h3> </div>',popupOption).openPopup();
     })
     .on("mouseout", event => {
         event.target.closePopup();
     })
-    .on("click" , () => {
-        window.open(element.url);
-    })
-});
+    // .on("click", () => {
+    //     window.open(element.url);
+    // })
+
+})
+

@@ -1,68 +1,80 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block home_button %}
-<form action="/">
-    <input type="submit" value="home"/>
-</form>
+
+    <form action="/">
+        <input type="submit" value="home"/>
+    </form>
+
 {% endblock %}
 
 
 {% block content %}
 
-<div>
-    <p>Enter your position</p>
-    <form  method="POST" action="{% url 'position_page' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div>
+        <p>ENTER YOUR COORDINATES</p>
 
-    <input type="submit" value="SUBMIT">
-    </form>
-</div>
+        <form  method="POST" action="{% url 'position_page' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="submit" value="SUBMIT">
+        </form>
+
+    </div>
 
 {% endblock %}
 
 
 {% block target_list %}
-<div>
 
-    <table>
+    <div>
+        <h2>{{ target_msg }}</h2>
+    </div>
 
-        <tr>
-            <th>Target type</th>
-            <th>Distance</th>
-            <th>Date/time</th>
-            <th>Agents</th>
-        </tr>
 
-        {% for target in target_objects %}
+    <div>
 
-        <tr>
+        <table>
 
-            <td>{{ target.type }}</td>
-            <td>{{ target.distance }}</td>
-            <td>{{ target.created }}</td>
-            <td>{{ target.user }}</td>
-        </tr>
+            <tr>
+                <th>Image</th>
+                <th>Target type</th>
+                <th>Distance (km)</th>
+                <th>Date/time</th>
+                <th>Agents</th>
+            </tr>
 
+            {% for target in target_objects %}
+
+                <tr>
+                    <td> <img src={{ target.target_img_path }} alt="Target image" class="table_image"> </td>
+                    <td>{{ target.type }}</td>
+                    <td>{{ target.distance }}</td>
+                    <td>{{ target.created }}</td>
+                    <td>{{ target.user }}</td>
+                </tr>
 
             {% endfor %}
 
-
-    </table>
-</div>
-
-
+        </table>
+    </div>
 
 {% endblock %}
 
-{% block map %}
-    <div id="map">
-    <script src="{% static './targets.js' %}" defer></script>
-    <script src="{% static 'map.js' %}" defer></script>
-    </div>
-    <div>
 
-    <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?{{ wind_lat }}&{{ wind_long }}&detailLat=51.312&detailLon=32.948&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+{% block map %}
+
+    <div id="map">
+        <script src="{% static 'map.js' %}" defer></script>
+        <script src="{% static './targets.js' %}"></script>
+        <script src="{% static './locationsC.js' %}"></script>
     </div>
+
+    <div>
+        <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?{{ wind_lat }}&{{ wind_long }}&detailLat=51.312&detailLon=32.948&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+    </div>
+
 {% endblock %}

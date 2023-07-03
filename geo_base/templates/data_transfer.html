@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block home_button %}
+
+    <form action="/">
+        <input type="submit" value="home"/>
+    </form>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div>
+
+        <p>TRANSFERRING TARGET'S COORDINATES</p>
+
+        <form method="POST" action="{% url 'data_transfer_page' %}">
+
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input type="submit" value="SEND">
+
+        </form>
+
+    </div>
+
+{% endblock %}
+
+
+{% block map %}
+
+    <div id="map">
+            <script src="{% static 'map.js' %}" defer></script>
+    </div>
+
+{% endblock %}

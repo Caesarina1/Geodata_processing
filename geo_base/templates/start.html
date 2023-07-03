@@ -2,28 +2,34 @@
 {% load static %}
 
 
-{% block content %}
+    {% block content %}
 
-    <h2 class="page-header__slogan-title page-header__title-text position-center text-title"> WELLCOME TO</h2>
-    <h1 class="page-header__slogan page-header__text position-center text-subtitle">GEODATA <br>PROCESSING SYSTEM</h1>
-    <div class="start-nav list-clear">
-        <div class="start-nav__item start-nav__item-text">
-            <a class="start-nav__link start-nav__link--underline link-clear" href="/data_trans">Send data without authorisation</a>
+        <h2 class="page-header__slogan-title page-header__title-text position-center text-title"> WELLCOME TO</h2>
+        <h1 class="page-header__slogan page-header__text position-center text-subtitle">GEODATA <br>PROCESSING SYSTEM</h1>
+
+        <div class="start-nav list-clear">
+
+            <div class="start-nav__item start-nav__item-text">
+                <a class="start-nav__link start-nav__link--underline link-clear" href="/data_transfer">Send data without authorisation</a>
+            </div>
+
         </div>
-    </div>
 
-{% endblock content %}
+    {% endblock content %}
 
 
-{% block authorisation_buttons %}
-            <ul class="site-nav list-clear">
-                <li class="site-nav__item site-nav__item-text">
-                    <a href="accounts/login" class="site-nav__link site-nav__link--underline link-clear">Login</a>
-                </li >
-                <li class="site-nav__item site-nav__item-text">
-                    <a href="/accounts/signup " class="site-nav__link site-nav__link--underline link-clear">SignUp</a>
-                </li>
+    {% block authorisation_buttons %}
 
-            </ul>
+        <ul class="site-nav list-clear">
 
-{% endblock authorisation_buttons %}
+            <li class="site-nav__item site-nav__item-text">
+                <a href="accounts/login" class="site-nav__link site-nav__link--underline link-clear">Login</a>
+            </li >
+
+            <li class="site-nav__item site-nav__item-text">
+                <a href="/accounts/signup " class="site-nav__link site-nav__link--underline link-clear">SignUp</a>
+            </li>
+
+        </ul>
+
+    {% endblock authorisation_buttons %}

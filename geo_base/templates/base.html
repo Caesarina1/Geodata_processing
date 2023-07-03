@@ -19,16 +19,19 @@
 
            <header class="page-header wrapper">
                 <nav class="page-header__nav">
+
                     <a class="site-logo link-clear" href="/">  <!link to a home(start) page>
                         <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
                         <p>GEODATA <br> PROCESSING <br> SYSTEM</p>
                     </a>
 
-                        {% block authorisation_buttons %}
+                    {% block authorisation_buttons %}
 
-                        {% endblock authorisation_buttons %}
+                    {% endblock authorisation_buttons %}
+
                 </nav>
            </header>
+
 
             <main class="wrapper">
                 {% block home_button %}
@@ -59,18 +62,20 @@
 
             <footer class="footer wrapper">
                 <ul class="site-nav list-clear">
+
                     <li class="site-nav__item site-nav__item-text">
-                        <a href="/position" class="site-nav__link site-nav__link--underline link-clear">go to position page</a>
+                        <a href="/position" class="site-nav__link site-nav__link--underline link-clear">go to your position page</a>
                     </li >
-                     <li class="site-nav__item site-nav__item-text">
-                        <a href="/data_trans " class="site-nav__link site-nav__link--underline link-clear">go to data_trans page</a>
+                    <li class="site-nav__item site-nav__item-text">
+                        <a href="/data_transfer " class="site-nav__link site-nav__link--underline link-clear">go to data transfer page</a>
                     </li>
-                     <li class="site-nav__item site-nav__item-text">
+                    <li class="site-nav__item site-nav__item-text">
+                    <li class="site-nav__item site-nav__item-text">
                         <a href="/" class="site-nav__link site-nav__link--underline link-clear">go to start page</a>
                     </li>
+
                 </ul>
             </footer>
-
 
 </body>
 

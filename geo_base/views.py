@@ -4,7 +4,7 @@ from .models import User, Target
 from django.contrib.auth import login, authenticate
 from geo_base import forms
 from .utils import RoleChoice
-from .distance import count_dist
+from geopy import distance as gd
 from datetime import date
 import time
 
@@ -25,7 +25,7 @@ def signup(request):
                 current_user.is_staff = True
                 current_user.save()
                 return redirect('position_page')
-            return redirect('data_transfer_page')
+            return redirect('data_transfer')
     else:
         form = forms.SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -37,7 +37,7 @@ def main_page(request):
 
 #  transferring target's location to DB
 
-def data_transfer_page(request):
+def data_transfer(request):
 
     if request.method == 'POST':
         form = forms.DataTransferForm(request.POST)
@@ -55,16 +55,18 @@ def data_transfer_page(request):
     else:
         form = forms.DataTransferForm()
 
-    return render(request=request, template_name="data_trans.html", context={"form": form})
+    return render(request=request, template_name="data_transfer.html", context={"form": form})
 
 
 #  getting target's data related to own position
 
 def position_page(request):
+    your_unit = ""
     latitude = ""
     longitude = ""
     form = forms.CombatUnitPositionForm()
     target_objects = []
+    target_msg = "*баш їх, бл***!"
 
     if request.method == 'POST':
         form = forms.CombatUnitPositionForm(request.POST)
@@ -79,6 +81,12 @@ def position_page(request):
             for target in targets:
                 tar_weight = 0
                 tar_certainty = 0
+                tar_image = '../static/images/military_personnel.png'
+
+                if target.type == "Command post":
+                    tar_image = '../static/images/command_post.png'
+                elif target.type == "Military equipment":
+                    tar_image = '../static/images/mlrs.png'
 
                 if target.type == 'command_post':
                     tar_weight += 10
@@ -94,12 +102,18 @@ def position_page(request):
                 for use in user_marker:
                     user_marker_item.append(use.username)
 
-# !!! count_dist
-                target_objects.append({"type": target.type,
-                                       "latitude": target.latitude, "longitude": target.longitude,
-                                       "distance": count_dist((latitude, longitude),(target.latitude, target.longitude)),
-                                       "created": created_marker.strftime('%Y-%m-%d %H:%M:%S'), "Weight": tar_weight, "Certainty": tar_certainty,
-                                       "user": ', '.join(user_marker_item)})
+#  calculating distance from combat unit to targets and displaying only close ones
+                dis_for_tar = gd.distance((latitude, longitude), (target.latitude, target.longitude)).km.__round__(3)
+
+                if dis_for_tar <= 300:
+                    target_objects.append({"type": target.type,
+                                           "latitude": target.latitude, "longitude": target.longitude,
+                                           "distance": dis_for_tar, "created": created_marker.strftime('%Y-%m-%d %H:%M:%S'),
+                                           "Weight": tar_weight, "Certainty": tar_certainty,
+                                           "user": ', '.join(user_marker_item), "target_img_path": tar_image})
+
+                else:
+                    target_msg = "You have no targets"
 
 # writing down our coordinates in a file
                 loc = "let locations = " + str(target_objects)
@@ -110,5 +124,12 @@ def position_page(request):
     else:
         print("Put your data")
 
-    return render(request=request, template_name="position.html", context={"target_objects": target_objects,
-                                                                           "form": form, "wind_lat": latitude, "wind_long": longitude})
+# creating combat unit marker
+    combat_object = {"typeC": your_unit, "latitudeC": latitude, "longitudeC": longitude}
+    loc_c = "let locationsCU = " + str(combat_object)
+    with open("geo_base/static/locationsC.js", "w") as file:
+        file.write(loc_c)
+
+    return render(request=request, template_name="position.html", context={"target_objects": target_objects, "form": form,
+                                                                           "wind_lat": latitude, "wind_long": longitude,
+                                                                           "target_msg": target_msg})

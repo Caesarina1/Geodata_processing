@@ -13,8 +13,8 @@ class UnitChoice:
 
 
 class TargetChoice:
-    MILITARY_PERSONNEL = 'military_personnel'
-    COMMAND_POST = 'command_post'
-    MILITARY_EQUIPMENT = 'military_equipment'
+    MILITARY_PERSONNEL = 'Military personnel'
+    COMMAND_POST = 'Command post'
+    MILITARY_EQUIPMENT = 'Military equipment'
     CHOICES = [(MILITARY_PERSONNEL, 'Military personnel'), (COMMAND_POST, 'Command post'),
                (MILITARY_EQUIPMENT, 'Military equipment')]
