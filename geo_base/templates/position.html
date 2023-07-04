@@ -50,7 +50,7 @@
             {% for target in target_objects %}
 
                 <tr>
-                    <td> <img src={{ target.target_img_path }} alt="Target image" class="table_image"> </td>
+                    <td><img src={{ target.target_img_path }} alt="Target image" class="table_image"></td>
                     <td>{{ target.type }}</td>
                     <td>{{ target.distance }}</td>
                     <td>{{ target.created }}</td>
@@ -74,7 +74,16 @@
     </div>
 
     <div>
-        <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?{{ wind_lat }}&{{ wind_long }}&detailLat=51.312&detailLon=32.948&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+
+        {% if combat_object.latitudeC %}
+            <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat={{ combat_object.latitudeC }}&lon={{ combat_object.longitudeC }}&detailLat={{ combat_object.latitudeC }}&detailLon={{ combat_object.longitudeC }}&width=650&height=450&zoom=14&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+
+        {% else %}
+            <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=47.484&lon=36.120&detailLat=47.484&detailLon=36.120&width=650&height=450&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+
+        {% endif %}
+
     </div>
+
 
 {% endblock %}

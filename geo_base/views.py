@@ -130,6 +130,6 @@ def position_page(request):
     with open("geo_base/static/locationsC.js", "w") as file:
         file.write(loc_c)
 
-    return render(request=request, template_name="position.html", context={"target_objects": target_objects, "form": form,
-                                                                           "wind_lat": latitude, "wind_long": longitude,
+    return render(request=request, template_name="position.html", context={"target_objects": target_objects,
+                                                                           "form": form, "combat_object": combat_object,
                                                                            "target_msg": target_msg})
