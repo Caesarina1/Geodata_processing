@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'geo_base',
+    'auth_app',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'Geodata_processing_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'geo_base/templates'],
+        'DIRS': ['geo_base/templates', 'auth_app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

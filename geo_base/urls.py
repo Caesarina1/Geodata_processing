@@ -16,13 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from geo_base import views
 
 
 urlpatterns = [
-    path('', views.main_page, name='welcome'),
     path('admin/', admin.site.urls),
-    path('auth_app/', include('auth_app.urls')),
-    path('geo_base/', include('geo_base.urls')),
+    path('data_transfer/', views.data_transfer, name='data_transfer_page'),
+    path('position/', views.position_page, name='position_page'),
+    # path('agent/<uuid:pk>', agent_profile, name="agent_info")
 ]

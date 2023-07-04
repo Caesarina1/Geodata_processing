@@ -1,9 +1,10 @@
     initial_position = [47.49493650511712, 36.175781451165676]
 
+    location_exist = locationsCU
+
     if (locationsCU.latitudeC) {
         initial_position = [locationsCU.latitudeC, locationsCU.longitudeC]
 }
-
 
     let mapOptions= {
         center: initial_position,
@@ -21,7 +22,7 @@
 }
 
     let combatIcon= {
-        iconUrl: "../static/images/marker-icon-blue.png",
+        iconUrl: "../geo_base/static/images/marker-icon-blue.png",
         iconSize: [25,41]
 }
 
@@ -48,7 +49,6 @@
             map.removeLayer(marker);
         }
 
-
         marker = L.marker([event.latlng.lat, event.latlng.lng], icon2Options).addTo(map);
 
         document.getElementById('id_latitude').value = event.latlng.lat;
@@ -59,8 +59,9 @@
     "closeButton":false
 }
 
-
-    new L.Marker([locationsCU.latitudeC, locationsCU.longitudeC], icon2Options).addTo(map)
+    if (locationsCU.latitudeC) {
+            new L.Marker([locationsCU.latitudeC, locationsCU.longitudeC], icon2Options).addTo(map)
+}
 
     locations.forEach(element => {
 
@@ -71,9 +72,6 @@
     .on("mouseout", event => {
         event.target.closePopup();
     })
-    // .on("click", () => {
-    //     window.open(element.url);
-    // })
 
 })
 
