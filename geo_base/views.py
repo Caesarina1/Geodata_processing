@@ -55,12 +55,12 @@ def position_page(request):
             for target in targets:
                 tar_weight = 0
                 tar_certainty = 0
-                tar_image = '../static/images/military_personnel.png'
+                tar_image = '/static/images/military_personnel.png'
 
                 if target.type == "Command post":
-                    tar_image = '../static/images/command_post.png'
+                    tar_image = '/static/images/command_post.png'
                 elif target.type == "Military equipment":
-                    tar_image = '../static/images/mlrs.png'
+                    tar_image = '/static/images/mlrs.png'
 
                 if target.type == 'command_post':
                     tar_weight += 10
