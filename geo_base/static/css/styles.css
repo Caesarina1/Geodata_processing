@@ -21,7 +21,7 @@ body  {
   flex-direction: column;
   justify-content: space-between;
   height:100%;
-  margin: 60px auto;
+  margin: 10px auto;
 }
 
 p{
@@ -301,7 +301,7 @@ margin-bottom: 50px;
   position: relative;
   max-width: 1298px;
   height: auto;
-  margin: 2px auto 60px auto;
+  margin: 2px auto 10px auto;
   background: transparent url("https://www.dropbox.com/s/qq5n8w99q40wtrg/wood-fence.png?raw=1") no-repeat center top 24em;
 }
 
