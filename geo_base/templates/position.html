@@ -67,6 +67,8 @@
 
 {% block map %}
 
+    <div class="map-wrapper">
+
     <div id="map">
         <script src="{% static 'map.js' %}" defer></script>
         <script src="{% static './targets.js' %}"></script>
@@ -74,9 +76,9 @@
     </div>
 
     <div>
+    <div class="wmap-wrapper">
 
         {% if combat_object.latitudeC %}
-
             <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat={{ combat_object.latitudeC }}&lon={{ combat_object.longitudeC }}&detailLat={{ combat_object.latitudeC }}&detailLon={{ combat_object.longitudeC }}&width=650&height=450&zoom=14&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
 
         {% else %}
@@ -85,6 +87,8 @@
         {% endif %}
 
     </div>
+    </div>
 
+    </div>
 
 {% endblock %}

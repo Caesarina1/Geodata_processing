@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wt6x(!g#f5sq5q6)+qr#l=3$tvexw80iov2=wgkcqe)0&fql7v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -134,4 +134,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/data_transfer/'
+LOGIN_REDIRECT_URL = '/geo_base/data_transfer/'

@@ -12,3 +12,6 @@ class Target(models.Model):
     longitude = models.FloatField()
     comment = models.CharField(max_length=1000, null=True)
     users = models.ManyToManyField(User, related_name='targets')
+
+    class Meta:
+        permissions = (("can_view_data_transfer", "Can view data transfer page"), ("can_view_position", "Can view position page"),)

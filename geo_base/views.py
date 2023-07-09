@@ -3,9 +3,11 @@ from django.http import HttpResponseNotFound
 from .models import User, Target
 from geo_base import forms
 from geopy import distance as gd
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def main_page(request):
+
     return render(request=request, template_name="start.html")
 
 
@@ -15,6 +17,7 @@ def data_transfer(request):
 
     if request.method == 'POST':
         form = forms.DataTransferForm(request.POST)
+
         if form.is_valid():
             type_data = form.cleaned_data.get('target_type')
             latitude_data = form.cleaned_data.get('latitude')
@@ -25,7 +28,9 @@ def data_transfer(request):
             current_user_pk = 1  # TEMP (in the future this will be filled with pk of a user, which has been logged in)!!!!!!!!
             user_entry = User.objects.get(pk=current_user_pk)
             new_target.users.add(user_entry)
+
             return redirect('data_transfer_page')
+
     else:
         form = forms.DataTransferForm()
 
@@ -34,6 +39,8 @@ def data_transfer(request):
 
 #  getting target's data related to own position
 
+@login_required
+# @permission_required
 def position_page(request):
     your_unit = ""
     latitude = ""
@@ -44,6 +51,7 @@ def position_page(request):
 
     if request.method == 'POST':
         form = forms.CombatUnitPositionForm(request.POST)
+
         if form.is_valid():
             your_unit = form.cleaned_data.get('your_unit')
             latitude = form.cleaned_data.get('latitude')
@@ -59,6 +67,7 @@ def position_page(request):
 
                 if target.type == "Command post":
                     tar_image = '/static/images/command_post.png'
+
                 elif target.type == "Military equipment":
                     tar_image = '/static/images/mlrs.png'
 
@@ -101,6 +110,7 @@ def position_page(request):
 # creating combat unit marker
     combat_object = {"typeC": your_unit, "latitudeC": latitude, "longitudeC": longitude}
     loc_c = "let locationsCU = " + str(combat_object)
+
     with open("geo_base/static/locationsC.js", "w") as file:
         file.write(loc_c)
 
