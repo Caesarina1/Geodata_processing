@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from auth_app import forms
 from .utils import RoleChoice
 
@@ -22,6 +22,8 @@ def signup(request):
             if is_staff:
                 current_user = User.objects.get(username=username)
                 current_user.is_staff = True
+                current_group = Group.objects.get(name='Combat Units')
+                current_user.groups.add(current_group)
                 current_user.save()
                 return redirect('position_page')
 

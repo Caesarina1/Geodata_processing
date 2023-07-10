@@ -14,7 +14,6 @@ def main_page(request):
 #  transferring target's location to DB
 
 def data_transfer(request):
-
     if request.method == 'POST':
         form = forms.DataTransferForm(request.POST)
 
@@ -23,10 +22,11 @@ def data_transfer(request):
             latitude_data = form.cleaned_data.get('latitude')
             longitude_data = form.cleaned_data.get('longitude')
             comment_data = form.cleaned_data.get('comment')
+
+            #  creating new instance
             new_target = Target(type=type_data, latitude=latitude_data, longitude=longitude_data, comment=comment_data)
             new_target.save()
-            current_user_pk = 1  # TEMP (in the future this will be filled with pk of a user, which has been logged in)!!!!!!!!
-            user_entry = User.objects.get(pk=current_user_pk)
+            user_entry = User.objects.get(username=request.user)
             new_target.users.add(user_entry)
 
             return redirect('data_transfer_page')
