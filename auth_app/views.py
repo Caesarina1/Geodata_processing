@@ -16,7 +16,7 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             is_staff = True if form.cleaned_data.get('role') == RoleChoice.COMBAT_UNIT else False
-            user = authenticate(username=username, password=raw_password, is_staff=is_staff)  #is_authenticated
+            user = authenticate(username=username, password=raw_password, is_staff=is_staff)
             login(request, user)
 
             if is_staff:
@@ -38,10 +38,3 @@ def signup(request):
 def forbidden(request):
 
     return render(request=request, template_name="forbidden_page.html")
-
-    # current_user = User.objects.get(username=username)
-    # current_user.is_staff = True
-    # current_user.save()
-    #
-    # if is_staff == False:
-    #     return render(request, 'forbidden_page.html')

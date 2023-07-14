@@ -23,5 +23,4 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup', views.signup, name='sign_up'),
     path('forbidden_page', views.forbidden, name='forbidden'),
-    # path('accounts/after_login', views.after_login, name='after_login')   !!!
 ]

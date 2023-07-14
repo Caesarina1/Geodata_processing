@@ -2,119 +2,119 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">  <!metadata for browsers which sets the character encoding>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!metadata for browsers to read information about screen resolution>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media.css' %}">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet/dist/leaflet.css" crossorigin=""/>  <!for maps>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js" crossorigin=""></script>  <!for maps>
-    <title>Geodata</title>
-</head>
+    <head>
+        <meta charset="UTF-8">  <!metadata for browsers which sets the character encoding>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!metadata for browsers to read information about screen resolution>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/media.css' %}">
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet/dist/leaflet.css" crossorigin=""/>  <!for maps>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js" crossorigin=""></script>  <!for maps>
+        <title>Geodata</title>
+    </head>
 
 
-<body>
+    <body>
 
-    <div class="wrap-content">
+        <div class="wrap-content">
 
-       <header class="page-header wrapper">
-            <nav class="page-header__nav">
+            <header class="page-header wrapper">
+                <nav class="page-header__nav">
 
-                <a class="site-logo link-clear" href="/">  <!link to a home(start) page>
-                    <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
-                    <p>GEODATA <br> PROCESSING <br> SYSTEM</p>
-                </a>
-
-
-                {% block authorisation_buttons %}
-
-                    <ul class="site-nav list-clear">
+                    <a class="site-logo link-clear" href="/">  <!link to a home(start) page>
+                        <img src="{% static 'images/sniper-2.png' %} " alt="logo" style="height: 70px; width: 70px">
+                        <p>GEODATA <br> PROCESSING <br> SYSTEM</p>
+                    </a>
 
 
-                        {% if user.is_authenticated %}
+                    {% block authorisation_buttons %}
 
-                            <li class="site-nav__item site-nav__item-text">
-                                <a href="/agent_info" class="site-nav__link site-nav__link--underline link-clear">Hi {{ user.get_username }}</a>
-                            </li >
-
-                            <li class="site-nav__item site-nav__item-text">
-                                <a href="{% url 'logout'%}?next=/" class="site-nav__link site-nav__link--underline link-clear">Logout</a>
-                            </li >
+                        <ul class="site-nav list-clear">
 
 
-                        {% else %}
+                            {% if user.is_authenticated %}
 
-                            <li class="site-nav__item site-nav__item-text">
-                                <a href="/auth_app/accounts/login" class="site-nav__link site-nav__link--underline link-clear">Login</a>
-                            </li >
+                                <li class="site-nav__item site-nav__item-text">
+                                    <a href="/agent_info" class="site-nav__link site-nav__link--underline link-clear">Hi {{ user.get_username }}</a>
+                                </li >
 
-                            <li class="site-nav__item site-nav__item-text">
-                                <a href="/auth_app/accounts/signup " class="site-nav__link site-nav__link--underline link-clear">SignUp</a>
-                            </li>
-
-                        {% endif %}
-
-                    </ul>
-                {% endblock authorisation_buttons %}
-
-            </nav>
-       </header>
+                                <li class="site-nav__item site-nav__item-text">
+                                    <a href="{% url 'logout'%}?next=/" class="site-nav__link site-nav__link--underline link-clear">Logout</a>
+                                </li >
 
 
-        <main class="wrapper">
-            {% block home_button %}
+                            {% else %}
 
-            {% endblock home_button %}
+                                <li class="site-nav__item site-nav__item-text">
+                                    <a href="/auth_app/accounts/login" class="site-nav__link site-nav__link--underline link-clear">Login</a>
+                                </li >
 
-            {% block data_transfer_button %}
+                                <li class="site-nav__item site-nav__item-text">
+                                    <a href="/auth_app/accounts/signup " class="site-nav__link site-nav__link--underline link-clear">SignUp</a>
+                                </li>
 
-            {% endblock data_transfer_button %}
+                            {% endif %}
 
-            {% block content %}
+                        </ul>
+                    {% endblock authorisation_buttons %}
 
-            {% endblock content %}
+                </nav>
+            </header>
 
-            {% block target_list %}
 
-            {% endblock target_list %}
+            <main class="wrapper">
+                {% block home_button %}
 
-            {% block map %}
+                {% endblock home_button %}
 
-            {% endblock map %}
+                {% block data_transfer_button %}
 
-            {% block need_to_signup %}
+                {% endblock data_transfer_button %}
 
-            {% endblock need_to_signup %}
+                {% block content %}
 
-        </main>
+                {% endblock content %}
 
-        <footer class="footer wrapper">
-            <ul class="site-nav list-clear">
+                {% block target_list %}
 
-                {% if user.is_authenticated %}
-                {% if perms.geo_base.can_view_position %}
+                {% endblock target_list %}
+
+                {% block map %}
+
+                {% endblock map %}
+
+                {% block need_to_signup %}
+
+                {% endblock need_to_signup %}
+
+            </main>
+
+            <footer class="footer wrapper">
+                <ul class="site-nav list-clear">
+
+                    {% if user.is_authenticated %}
+                    {% if perms.geo_base.can_view_position %}
+
+                        <li class="site-nav__item site-nav__item-text">
+                            <a href="/geo_base/position" class="site-nav__link site-nav__link--underline link-clear">go to your position page</a>
+                        </li >
+
+                    {% endif %}
+                    {% endif %}
 
                     <li class="site-nav__item site-nav__item-text">
-                        <a href="/geo_base/position" class="site-nav__link site-nav__link--underline link-clear">go to your position page</a>
-                    </li >
+                        <a href="/geo_base/data_transfer" class="site-nav__link site-nav__link--underline link-clear">go to data transfer page</a>
+                    </li>
 
-                {% endif %}
-                {% endif %}
+                    <li class="site-nav__item site-nav__item-text">
+                        <a href="/" class="site-nav__link site-nav__link--underline link-clear">go to start page</a>
+                    </li>
 
-                <li class="site-nav__item site-nav__item-text">
-                    <a href="/geo_base/data_transfer" class="site-nav__link site-nav__link--underline link-clear">go to data transfer page</a>
-                </li>
+                </ul>
 
-                <li class="site-nav__item site-nav__item-text">
-                    <a href="/" class="site-nav__link site-nav__link--underline link-clear">go to start page</a>
-                </li>
-
-            </ul>
-
-        </footer>
-    </div>
-</body>
+            </footer>
+        </div>
+    </body>
 
 </html>

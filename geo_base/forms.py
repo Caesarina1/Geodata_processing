@@ -13,4 +13,3 @@ class CombatUnitPositionForm(forms.Form):
     your_unit = forms.ChoiceField(choices=utils.UnitChoice.CHOICES)
     latitude = forms.FloatField(required=True)
     longitude = forms.FloatField(required=True)
-    comment = forms.CharField(widget=forms.Textarea)

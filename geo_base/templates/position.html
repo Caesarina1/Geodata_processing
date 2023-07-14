@@ -2,21 +2,12 @@
 {% load static %}
 
 
-{% block home_button %}
-
-    <form action="/">
-        <input type="submit" value="home"/>
-    </form>
-
-{% endblock %}
-
-
 {% block content %}
 
     <div>
         <p>ENTER YOUR COORDINATES</p>
 
-        <form  method="POST" action="{% url 'position_page' %}">
+        <form id="position" method="POST" action="{% url 'position_page' %}">
             {% csrf_token %}
             {{ form.as_p }}
 
@@ -35,25 +26,29 @@
     </div>
 
 
-    <div>
+    {% if target_msg == "*баш їх, бл***!" %}
 
+    <div>
         <table>
 
             <tr>
-                <th>Image</th>
-                <th>Target type</th>
-                <th>Distance (km)</th>
-                <th>Date/time</th>
-                <th>Agents</th>
+                <th>Icon</th>
+                <th>Target type<button form="position" name="sort_id" value="type ascending">&#x25b4;</button><button form="position" name="sort_id" value="type descending">&#x25be;</button></th>
+                <th>Distance (km)<button form="position" name="sort_id" value="distance ascending">&#x25b4;</button><button form="position" name="sort_id" value="distance descending">&#x25be;</button></th>
+                <th>Date/time<button form="position" name="sort_id" value="created ascending">&#x25b4;</button><button form="position" name="sort_id" value="created descending">&#x25be;</button></th>
+                <th>Importance<button form="position" name="sort_id" value="importance ascending">&#x25b4;</button><button form="position" name="sort_id" value="importance descending">&#x25be;</button></th>
+                <th>Agents<button form="position" name="sort_id" value="user ascending">&#x25b4;</button><button form="position" name="sort_id" value="user descending">&#x25be;</button></th>
             </tr>
 
-            {% for target in target_objects %}
+            <p>Calculated for coordinates: <br> Latitude:  {{ combat_object.latitudeC}} <br>Longitude: {{combat_object.longitudeC}}</p>
+            {% for target in sorted_targets %}
 
                 <tr>
                     <td><img src={{ target.target_img_path }} alt="Target image" class="table_image"></td>
                     <td>{{ target.type }}</td>
                     <td>{{ target.distance }}</td>
                     <td>{{ target.created }}</td>
+                    <td>{{ target.importance }}</td>
                     <td>{{ target.user }}</td>
                 </tr>
 
@@ -62,6 +57,9 @@
         </table>
     </div>
 
+    {% endif %}
+
+
 {% endblock %}
 
 
@@ -69,25 +67,25 @@
 
     <div class="map-wrapper">
 
-    <div id="map">
-        <script src="{% static 'map.js' %}" defer></script>
-        <script src="{% static './targets.js' %}"></script>
-        <script src="{% static './locationsC.js' %}"></script>
-    </div>
+        <div id="map">
+            <script src="{% static 'map.js' %}" defer></script>
+            <script src="{% static './targets.js' %}"></script>
+            <script src="{% static './locationsC.js' %}"></script>
+        </div>
 
-    <div>
-    <div class="wmap-wrapper">
+        <div>
+            <div class="wmap-wrapper">
 
-        {% if combat_object.latitudeC %}
-            <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat={{ combat_object.latitudeC }}&lon={{ combat_object.longitudeC }}&detailLat={{ combat_object.latitudeC }}&detailLon={{ combat_object.longitudeC }}&width=650&height=450&zoom=14&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
+                {% if combat_object.latitudeC %}
+                    <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat={{ combat_object.latitudeC }}&lon={{ combat_object.longitudeC }}&detailLat={{ combat_object.latitudeC }}&detailLon={{ combat_object.longitudeC }}&width=650&height=450&zoom=14&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=12&pressure=&type=map&location=coordinates&detail=&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>
 
-        {% else %}
-            <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=47.484&lon=36.120&detailLat=47.484&detailLon=36.120&width=650&height=450&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+                {% else %}
+                    <iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=47.484&lon=36.120&detailLat=47.484&detailLon=36.120&width=650&height=450&zoom=10&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
 
-        {% endif %}
+                {% endif %}
 
-    </div>
-    </div>
+            </div>
+        </div>
 
     </div>
 

@@ -25,6 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth_app/', include('auth_app.urls')),
     path('geo_base/', include('geo_base.urls')),
-    # path('position/', views.position_page, name='position_page'),
-    # path('data_transfer/', views.data_transfer, name='data_transfer_page'),
 ]

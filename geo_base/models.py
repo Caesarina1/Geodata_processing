@@ -1,5 +1,4 @@
 from django.db import models
-# from django.contrib.gis.db import models as gis_models
 import uuid
 from django.contrib.auth.models import User
 
