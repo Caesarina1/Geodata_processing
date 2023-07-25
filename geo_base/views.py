@@ -122,12 +122,6 @@ def position_page(request):
                     file.write(loc)
 
 
-#  if filled up not correctly
-
-    else:
-        print("Put your data")
-
-
 #  creating combat unit marker
 
     combat_object = {"typeC": your_unit, "latitudeC": latitude, "longitudeC": longitude}
