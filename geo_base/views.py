@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import User, Target
 from geo_base import forms
 from geopy import distance as gd
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def main_page(request):
@@ -38,7 +38,9 @@ def data_transfer(request):
 
 #  getting target's data related to own position
 
+
 @login_required
+@permission_required("geo_base.can_view_position")
 def position_page(request):
     sort_if = None
     sort_if_direction = None
@@ -61,6 +63,17 @@ def position_page(request):
             longitude = form.cleaned_data.get('longitude')
             targets = Target.objects.all()
 
+# determining the distance relative to the weapon
+
+            striking_dist = 2000
+            if your_unit == "m777":
+                striking_dist = 40
+            elif your_unit == "himars_m142":
+                striking_dist = 500
+            elif your_unit == "storm_shadow":
+                striking_dist = 550
+            elif your_unit == "c_300":
+                striking_dist = 300
 
 #  sorting in the table
 
@@ -106,7 +119,7 @@ def position_page(request):
 
                 dis_for_tar = gd.distance((latitude, longitude), (target.latitude, target.longitude)).km.__round__(3)
 
-                if dis_for_tar <= 300:
+                if dis_for_tar <= striking_dist:
                     target_msg = "*баш їх, бл***!"
                     target_objects.append({"type": target.type,
                                            "latitude": target.latitude, "longitude": target.longitude,

@@ -1,1 +1,1 @@
-let locationsCU = {'typeC': 'm777', 'latitudeC': 48.677324191176886, 'longitudeC': 33.51225586608052}
+let locationsCU = {'typeC': '', 'latitudeC': '', 'longitudeC': ''}

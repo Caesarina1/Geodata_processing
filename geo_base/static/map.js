@@ -7,7 +7,7 @@
     let myIcon2 = L.icon(combatIcon);
 
     let icon2Options = {
-        title: "combat_unit.type",
+        title: locationsCU.typeC,
         draggable: true,
         icon: myIcon2,
 }
@@ -16,7 +16,7 @@
 initial_position = [47.49493650511712, 36.175781451165676]
 
 
-         if ( window.location.pathname=="/geo_base/position/"){
+         if ( window.location.pathname=="/geo_base/position/" ){
              if (locationsCU.latitudeC) {
                             initial_position = [locationsCU.latitudeC, locationsCU.longitudeC]
                     }
@@ -50,15 +50,15 @@ let map = new L.map('map', mapOptions);
 
         let myIcon = L.icon(targetIcon);
 
-        let iconOptions = {
-        title: "target.type",
-        draggable: true,
-        icon: myIcon,
-        }
 
 
 if (typeof locations !== 'undefined'){
             locations.forEach(element => {
+
+                    let iconOptions = {
+                    title: element.type,
+                    draggable: true,
+                    icon: myIcon,}
 
                     new L.Marker([element.latitude,element.longitude], iconOptions).addTo(map)
                     .on("mouseover", event => {
